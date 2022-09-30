@@ -1,10 +1,10 @@
 import React, { useEffect, useState} from 'react';
-// import Preview from './Preview';
+import Preview from './Preview';
 import Dropzone from 'react-dropzone-uploader';
 import 'react-dropzone-uploader/dist/styles.css'
 
 
-const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
+const Layout = ({ input, previews, submitButton, dropzoneProps, files, remove, extra: { maxFiles } }) => {
     return (
       <div>
         {previews.map((item, index)=>{
@@ -22,16 +22,15 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
                         </div>
             </> )
         })
-        
-            
         }
+
         {console.log("--------",previews)}
   
         <div {...dropzoneProps}>
           {files.length < maxFiles && input}
         </div>
-  
-        {files.length > 0 && submitButton}
+        {}
+        {/* {files.length > 0 && submitButton} */}
       </div>
     )
   }
@@ -48,10 +47,18 @@ const CustomDropzone = () => {
     allFiles.forEach(f => f.remove())
   }
   
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log(status, meta)
-     setUpdateStatus(meta);
+  const handleChangeStatus = (previews, status) => {
+    console.log(previews, status)
+    if (status === 'headers_received') {
+        // setUpdateStatus(`${meta.name} uploaded!`);
+        // remove();
+        
+      } else if (status === 'aborted') {
+        // setUpdateStatus(`${meta.name} upload failed...`); 
+      }
+     
   }
+
 
 
 
@@ -61,15 +68,17 @@ const CustomDropzone = () => {
 
 <Dropzone
       getUploadParams={getUploadParams}
-      LayoutComponent={Layout}
-      onSubmit={handleSubmit}
+    //   LayoutComponent={Layout}
+    //   onSubmit={handleSubmit}
+      maxFiles={1}
       onChangeStatus={handleChangeStatus}
+    //   PreviewComponent={Preview}
     //   classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
       inputContent="Upload a file or drag and drop"
       
     />
 
-      
+      {updateStatus}
     </div>
   );
 }

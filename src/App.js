@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import './App.css';
 import CustomDropzone from './CustomDropzone';
 import CustomDropzone2 from './CustomDropzone2';
+import CustomDropzone3 from './CustomDropzone3';
 import 'react-dropzone-uploader/dist/styles.css'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
       
      {/* <CustomDropzone  /> */}
 
-     <CustomDropzone2  />
+     <CustomDropzone3  />
 
 
 
